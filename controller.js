@@ -27,7 +27,7 @@ exports.listFlowers = (req, res) => {
 }
 
 //working
-exports.lookupFlower = (req, res) => {
+exports.getFlowerDetails = (req, res) => {
   const comname = req.params["comname"];
   if (!comname) return res.status(400).send();
   //console.log(`Looking up flower: ${comname}`);
@@ -36,6 +36,24 @@ exports.lookupFlower = (req, res) => {
     if (err) res.status(500).send(err);
     else if (!row) res.status(204).send(err);
     else res.status(200).send(row);
+  });
+}
+//working
+exports.searchFlower = (req, res) => {
+  const keyword = req.params["keyword"].toLowerCase();
+  if (!keyword) return res.status(400).send();
+
+  db.all("select * from flowers", [], (err, rows) => {
+    if (err) return res.status(500).send();
+    const matches = rows.filter(row => {
+      //console.log(row);
+      if (row.COMNAME.toLowerCase().includes(keyword) || keyword.includes(row.COMNAME.toLowerCase())) return true;
+      if (row.GENUS.toLowerCase().includes(keyword) || keyword.includes(row.GENUS.toLowerCase())) return true;
+      if (row.SPECIES.toLowerCase().includes(keyword) || keyword.includes(row.SPECIES.toLowerCase())) return true;
+      return false;
+    });
+    if (!matches) return res.status(204).send();
+    else return res.status(200).send(matches);
   });
 }
 
@@ -78,7 +96,6 @@ exports.deleteFlower = (req, res) => {
 //todo: test
 //POST to /sighting
 //parameters name, person, location, date ("YYYY-MM-DD")
-//working
 exports.addSighting = (req, res) => {
   const params = [req.query["name"], req.query["person"], req.query["location"], req.query["sighted"]];
   //console.log(req);
@@ -92,5 +109,16 @@ exports.addSighting = (req, res) => {
   db.run("insert into sightings (name, person, location, sighted) values (?,?,?,?)", params, err => {
     if (err) res.status(500).send();
     else res.status(201).send();
+  });
+}
+
+
+//working
+exports.getSightings = (req, res) => {
+  const comname = req.params["comname"];
+  if (!comname) return res.status(400).send();
+  db.all("select * from sightings where name=? order by sighted desc limit 10", [comname], (err, rows) => {
+    if (err) return res.status(500).send(err);
+    return res.status(200).send(rows);
   });
 }

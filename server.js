@@ -18,7 +18,9 @@ app.get('/script', controller.serveJS);
 //lookup flower
 //pathparam flower common name
 //access by req.params.comname
-app.get('/flower/:comname', controller.lookupFlower);
+app.get('/flower/:comname', controller.getFlowerDetails);
+
+app.get('/flower/search/:keyword', controller.searchFlower)
 
 //return all flowers
 app.get('/flower', controller.listFlowers);
@@ -33,13 +35,13 @@ app.post('/flower', controller.createFlower);
 //DELETe
 app.delete('/flower/:comname', controller.deleteFlower);
 
-
+app.post('/user/:username')
 
 //add sighting
 //query params
 //sample: http://localhost:8083/sighting/?name=someflowernamefff&person=me&location=up ur butt around the corner&sighted=2018-09-20
 app.post('/sighting', controller.addSighting);
-
+app.get('/sighting/:comname', controller.getSightings);
 
 
 //starting the server
