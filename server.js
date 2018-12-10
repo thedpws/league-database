@@ -15,18 +15,29 @@ app.get('/', controller.serveHTML);
 //get static js
 app.get('/script', controller.serveJS);
 
-//return all flowers
-app.get('/flowers', controller.listFlowers);
-
 //lookup flower
 //pathparam flower common name
 //access by req.params.comname
 app.get('/flower/:comname', controller.lookupFlower);
 
+//return all flowers
+app.get('/flower', controller.listFlowers);
+
+//PUT
+// sample: localhost:8083/flower/Douglas dustymaiden?genus=douglas is gay lmao&species=gagagag
+app.put('/flower/:comname', controller.updateFlower);
+
+//POST
+app.post('/flower', controller.createFlower);
+
+//DELETe
+app.delete('/flower/:comname', controller.deleteFlower);
+
 
 
 //add sighting
 //query params
+//sample: http://localhost:8083/sighting/?name=someflowernamefff&person=me&location=up ur butt around the corner&sighted=2018-09-20
 app.post('/sighting', controller.addSighting);
 
 

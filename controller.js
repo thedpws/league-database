@@ -29,12 +29,49 @@ exports.listFlowers = (req, res) => {
 //working
 exports.lookupFlower = (req, res) => {
   const comname = req.params["comname"];
+  if (!comname) return res.status(400).send();
   //console.log(`Looking up flower: ${comname}`);
   db.get("select * from flowers where comname = ?",[comname] , (err,row) => {
     //console.log(`rs: ${row}`);
     if (err) res.status(500).send(err);
     else if (!row) res.status(204).send(err);
     else res.status(200).send(row);
+  });
+}
+
+//working
+exports.updateFlower = (req, res) => {
+  const comname = req.params["comname"];
+  const genus = req.query.genus;
+  const species = req.query.species;
+  if (!comname || !genus || !species) return res.status(400).send();
+  const params = [genus, species, comname];
+  db.run("update flowers set genus=?, species=? where comname=?", params, err => {
+    if (err) return res.status(500).send(err);
+    else return res.status(200).send();
+  });
+}
+
+//working
+exports.createFlower = (req, res) => {
+  const comname = req.query.comname;
+  const genus = req.query.genus;
+  const species = req.query.species;
+  if (!comname || !genus || !species) return res.status(400).send();
+  const params = [comname, genus, species];
+
+  db.run("insert into flowers (comname, genus, species) values (?,?,?)", params, err => {
+    if (err) return res.status(500).send();
+    else return res.status(201).send();
+  });
+}
+//working
+exports.deleteFlower = (req, res) => {
+  const comname = req.params["comname"];
+  if (!comname) return res.status(400).send();
+  db.run("delete from flowers where comname=?", [comname], err => {
+    if (err) return res.status(500).send();
+    else res.status(200).send();
   });
 }
 
@@ -54,6 +91,6 @@ exports.addSighting = (req, res) => {
   });
   db.run("insert into sightings (name, person, location, sighted) values (?,?,?,?)", params, err => {
     if (err) res.status(500).send();
-    else res.status(200).send();
+    else res.status(201).send();
   });
 }
