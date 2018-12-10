@@ -16,7 +16,7 @@ app.get('/', controller.serveHTML);
 app.get('/script', controller.serveJS);
 
 //return all flowers
-//app.get('/flower', controller.getAllFlowers);
+app.get('/flowers', controller.listFlowers);
 
 //lookup flower
 //pathparam flower common name
