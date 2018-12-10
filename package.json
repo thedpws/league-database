@@ -1,0 +1,27 @@
+{
+  "name": "dbassignment5",
+  "version": "1.0.0",
+  "description": "for the databases assignment 5",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "echo \"Starting the server...\\\n\" && node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thedpws/DBAssignment5.git"
+  },
+  "author": "Aeyzechiah Vasquez, Jinhong (Ivan)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thedpws/DBAssignment5/issues"
+  },
+  "homepage": "https://github.com/thedpws/DBAssignment5#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "fs": "0.0.1-security",
+    "morgan": "^1.9.1",
+    "sqlite3": "^4.0.4",
+    "url": "^0.11.0"
+  }
+}
