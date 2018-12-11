@@ -72,11 +72,46 @@ function viewMain(){
 let genus = "";
 let species = "";
 
+function openFlowerCreation(){
+    document.getElementById("details").innerHTML = `
+    <img src="img/#.jpg" height="400" width="400"><br>
+    <label id="comname-input-label">Common name</label><input id="comname-input" type="text"><br>
+    <label id="genus-input-label">Genus</label><input id="genus-input" type="text"><br>
+    <label id="species-input-label">Species</label><input id="species-input" type="text"><br>
+    <button onclick="submitFlowerCreation()">Register new flower</button>
+    `;
+
+    document.getElementById("sightings-list").innerHTML = "None";
+    document.getElementById("add").innerHTML = "";
+}
+
+function submitFlowerCreation(){
+    const comname = document.getElementById("comname-input").value;
+    const genus = document.getElementById("genus-input").value;
+    const species = document.getElementById("species-input").value;
+    if (!genus) document.getElementById("genus-input-label").style.color = "red";
+    else document.getElementById("genus-input-label").style.color = "initial";
+    if (!species) document.getElementById("species-input-label").style.color = "red";
+    else document.getElementById("species-input-label").style.color = "initial";
+    if (!comname) document.getElementById("comname-input-label").style.color = "red";
+    else document.getElementById("comname-input-label").style.color = "initial";
+    if (!genus || !species || !comname) return;
+
+    sendXHR("POST", `/flower/?comname=${comname}&genus=${genus}&species=${species}`, {}, () => {
+        viewDetails(comname, genus, species);
+        populateResults();
+    })
+}
+
 function viewDetails(comname, genus, species){
     document.getElementById('view-login').style.display = "none";
     document.getElementById('view-main-search').style.display = "none";
     document.getElementById('view-main').style.display = "initial";
     document.getElementById('view-main-details').style.display = "initial";
+
+    if (!comname && !genus && !species){
+        return openFlowerCreation();
+    }
 
     document.getElementById("details").innerHTML = `
     <img src="img/${comname}.jpg" height="400" width="400">
@@ -189,7 +224,12 @@ function fillUsername(){
 
 function populateResults(callback){
     sendXHR("GET", "/flower", {}, res => {
-        document.getElementById("flowersList").innerHTML = "";
+        document.getElementById("flowersList").innerHTML = `
+    <div onclick="viewDetails()">
+        <img src="img/add.jpg" height="100" width="100">
+        <h1><i>Register a new flower</i></h1>
+    </div>
+    `;
         for (i in res) {
             const flower = res[i];
             document.getElementById("flowersList").innerHTML += `
