@@ -22,7 +22,7 @@ label{
 }
 
 body {
-    background-image: url("111.jpg");
+    background-image: url("../../client/111.jpg");
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;

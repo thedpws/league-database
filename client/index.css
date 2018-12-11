@@ -10,6 +10,15 @@ button {
     height: 20px;
 }
 
+#body {
+    background-image: url("111.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 button:hover{
     border: deeppink;
     cursor: pointer;

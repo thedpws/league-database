@@ -57,6 +57,7 @@ function viewLogin(){
     document.getElementById('view-main-search').style.display = "none";
     document.getElementById('view-main').style.display = "none";
     document.getElementById('view-main-details').style.display = "none";
+    document.getElementById('body').style.backgroundImage = "url(\"111.jpg\")";
 }
 
 function viewMain(){
@@ -65,6 +66,7 @@ function viewMain(){
     document.getElementById('view-main-search').style.display = "initial";
     document.getElementById('view-main').style.display = "initial";
     document.getElementById('view-main-details').style.display = "none";
+    document.getElementById('body').style.backgroundImage = "initial";
 }
 
 let genus = "";
