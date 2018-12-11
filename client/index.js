@@ -151,6 +151,7 @@ function openFlowerForm(comname, genus, species){
         else document.getElementById("species-input-label").style.color = "initial";
         if (!newGenus || !newSpecies) return;
         sendXHR("PUT", `/flower/${comname}?genus=${newGenus}&species=${newSpecies}`, {}, () => {
+            populateFilteredResults();
             viewDetails(comname, newGenus, newSpecies);
         });
     }
