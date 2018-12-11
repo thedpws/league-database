@@ -35,7 +35,7 @@ app.post('/flower', controller.createFlower);
 //DELETe
 app.delete('/flower/:comname', controller.deleteFlower);
 
-app.post('/user/:username')
+//app.post('/user/:username', controller.registerUser)
 
 //add sighting
 //query params
@@ -43,7 +43,8 @@ app.post('/user/:username')
 app.post('/sighting', controller.addSighting);
 app.get('/sighting/:comname', controller.getSightings);
 
-
+app.post('/user', controller.registerUser);
+app.get('/user', controller.authenticateUser);
 //starting the server
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 

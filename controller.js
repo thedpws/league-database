@@ -2,6 +2,11 @@ const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
 
 const db = new sqlite3.Database("flowers-2.db");
+const userdb = new sqlite3.Database("users.db");
+
+//initialize usersdb
+userdb.run("create table if not exists USERS (USERNAME varchar(30), constraint uniqueUname primary key (USERNAME))");
+
 
 exports.serveHTML = (req, res) => {
   fs.readFile('./client/index.html', 'utf8', (err, data) => {
@@ -121,4 +126,22 @@ exports.getSightings = (req, res) => {
     if (err) return res.status(500).send(err);
     return res.status(200).send(rows);
   });
+}
+//working
+exports.registerUser = (req, res) => {
+  const username = req.query["username"];
+  if (!username) return res.status(400).send();
+  userdb.run("insert into users (username) values (?)", [username], err => {
+    if (err) return res.status(500).send(err);
+    else return res.status(201).send(err);
+  });
+}
+//working
+exports.authenticateUser = (req, res) => {
+  const username = req.query["username"];
+  userdb.get("select * from users where username = ?", [username], (err, row) => {
+    if (err) return res.status(500).send(err);
+    else if (!row) res.status(204).send();
+    else res.status(200).send();
+  })
 }
