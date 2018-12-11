@@ -81,7 +81,7 @@ function viewDetails(comname, genus, species){
     <h1>${comname}</h1>
     <h3 id="species-genus">${genus} ${species}</h3>
     <button id="edit-flower-btn" onclick="openFlowerForm('${comname}', '${genus}', '${species}')">Edit flower</button><br>
-    <button onclick="deleteFlower('${comname}')">Unregister flower</button>
+    <button id="del-flower-btn" onclick="deleteFlower('${comname}')">Unregister flower</button>
     `;
 
     document.getElementById("sightings-list").innerHTML = "<tr>\n" +
@@ -109,9 +109,9 @@ function openForm(comname){
     document.getElementById("add").innerHTML = `
         <div style="margin: 20px;">
         <button onclick="closeForm('${comname}')">Close</button><br>
-        <label>Seen</label><input style="float: right; margin-right: 10%;" id="date-input" type="date" placeholder="YYYY-MM-DD"><br>
-        <label>Location</label><input style="float: right; margin-right: 10%;" id="location-input" type="text"><br>
-        <button onclick="submitForm('${comname}')" style="float: right; margin-right: 10%;">Submit</button>
+        <input style="float: right;" id="date-input" type="date" placeholder="YYYY-MM-DD"><label style="float: right; margin-right: 5px">Seen</label><br>
+        <input style="float: right;" id="location-input" type="text"><label style="float: right; margin-right: 5px">Location</label><br>
+        <button onclick="submitForm('${comname}')" style="float: right;">Submit</button>
         </div>`;
     console.log(document.getElementById("add").innerHTML);
 }
