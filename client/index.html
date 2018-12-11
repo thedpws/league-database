@@ -1,3 +1,53 @@
+<!DOCTYPE html>
 <html>
-<body>hi</body>
-</html>
+<head>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body id="body">
+
+<div id="view-login" style="display: none;">
+    <h1>Enter your username!</h1>
+    <label>Username: </label><input type="text" placeholder="XxSQLordxX" id="uname-input">
+    <button onclick="login()">Log in</button>
+</div>
+
+<div id="view-main">
+
+    <div id="title" class="title">
+        <img class="_logo_" src="img/logo.jpg">
+        <h1 class="SWCC">SWCC</h1>
+    </div>
+
+    <div id="view-main-search" class="else">
+        <div class="header">
+            <label class="label">Search</label>
+            <input class="search" type="text">
+            <button class="logout" onclick="logout()">Logout <span class="username">defaultuser</span></button>
+        </div>
+
+        <div class="content" id="flowersList"></div>
+    </div>
+
+    <div id="view-main-details" class="else">
+        <div class="header">
+            <button class="back" onclick="viewMain()">back</button>
+            <div class="search"></div>
+            <button class="logout" onclick="logout()">Logout <span class="username">defaultuser</span></button>
+        </div>
+        <div class="details" id="details">
+
+        </div>
+        <div class="sightings">
+            <h1>Recent Sightings</h1>
+            <table id="sightings-list"></table>
+        </div>
+        <div id="add">
+        </div>
+    </div>
+</div>
+
+<script src="index.js"></script>
+</body>
+<html>

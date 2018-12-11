@@ -19,6 +19,7 @@
   "homepage": "https://github.com/thedpws/DBAssignment5#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "fs": "0.0.1-security",
     "morgan": "^1.9.1",
     "sqlite3": "^4.0.4",

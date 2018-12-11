@@ -6,14 +6,20 @@ const http = require('http'),
 const express = require('express');
 const app = express();
 
-
 const controller = require('./controller.js');
+
+app.use(express.static('client'));
+/*
 
 //get static indexhtml
 app.get('/', controller.serveHTML);
 
 //get static js
 app.get('/script', controller.serveJS);
+
+//get static css
+app.get('/style', controller.serveCSS);
+*/
 
 //lookup flower
 //pathparam flower common name
@@ -45,6 +51,11 @@ app.get('/sighting/:comname', controller.getSightings);
 
 app.post('/user', controller.registerUser);
 app.get('/user', controller.authenticateUser);
+
+app.all('/*', (req, res) => {
+    console.log("Failed to route " + req.pathname);
+    res.status(404).send("bish nothing here");
+});
 //starting the server
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 

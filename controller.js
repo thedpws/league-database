@@ -7,22 +7,6 @@ const userdb = new sqlite3.Database("users.db");
 //initialize usersdb
 userdb.run("create table if not exists USERS (USERNAME varchar(30), constraint uniqueUname primary key (USERNAME))");
 
-
-exports.serveHTML = (req, res) => {
-  fs.readFile('./client/index.html', 'utf8', (err, data) => {
-    if (err) res.status(500).send();
-    else res.status(200).send(data);
-  });
-}
-
-//TODO test
-exports.serveJS = (req, res) => {
-  fs.readFile('./client/index.js', 'utf8', (err, data) => {
-    if (err) res.status(500).send();
-    else res.status(200).send(data);
-  });
-}
-
 //working
 exports.listFlowers = (req, res) => {
   db.all("select * from flowers", [], (err, rows) => {
