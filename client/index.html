@@ -25,7 +25,7 @@
     <div id="view-main-search" class="else">
         <div class="header">
             <label class="label">Search</label>
-            <input class="search" type="text">
+            <input id="searchbar" onchange="populateFilteredResults()" class="search" type="text">
             <button class="logout" onclick="logout()">Logout <span class="username">defaultuser</span></button>
         </div>
 

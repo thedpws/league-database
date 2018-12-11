@@ -107,8 +107,8 @@ function viewDetails(comname, genus, species){
 
 function openForm(comname){
     document.getElementById("add").innerHTML = `
-        <div style="margin: 20px;">
-        <button onclick="closeForm('${comname}')">Close</button><br>
+        <div style="margin-right: 10px">
+        <button onclick="closeForm('${comname}')" style="margin-right: 100px;">Close</button><br>
         <input style="float: right;" id="date-input" type="date" placeholder="YYYY-MM-DD"><label style="float: right; margin-right: 5px">Seen</label><br>
         <input style="float: right;" id="location-input" type="text"><label style="float: right; margin-right: 5px">Location</label><br>
         <button onclick="submitForm('${comname}')" style="float: right;">Submit</button>
@@ -139,12 +139,17 @@ function submitForm(comname){
 
 function openFlowerForm(comname, genus, species){
     document.getElementById("species-genus").innerHTML = `
-    <label>Genus</label><input id="genus-input" type="text"><br>
-    <label>Species</label><input id="species-input" type="text"><br>`;
+    <label id="genus-input-label">Genus</label><input id="genus-input" type="text"><br>
+    <label id="species-input-label">Species</label><input id="species-input" type="text"><br>`;
     document.getElementById("edit-flower-btn").innerText = "Save flower registry";
     document.getElementById("edit-flower-btn").onclick = () => {
         const newGenus = document.getElementById("genus-input").value;
         const newSpecies = document.getElementById("species-input").value;
+        if (!newGenus) document.getElementById("genus-input-label").style.color = "red";
+        else document.getElementById("genus-input-label").style.color = "initial";
+        if (!newSpecies) document.getElementById("species-input-label").style.color = "red";
+        else document.getElementById("species-input-label").style.color = "initial";
+        if (!newGenus || !newSpecies) return;
         sendXHR("PUT", `/flower/${comname}?genus=${newGenus}&species=${newSpecies}`, {}, () => {
             viewDetails(comname, newGenus, newSpecies);
         });
@@ -194,6 +199,23 @@ function populateResults(callback){
     });
 }
 
+
+function populateFilteredResults(callback){
+    const keywords = document.getElementById("searchbar").value;
+    if (!keywords) return populateResults(callback);
+    sendXHR("GET", `/flower/search/${keywords}`, {}, res => {
+        document.getElementById("flowersList").innerHTML = "";
+        for (i in res) {
+            const flower = res[i];
+            document.getElementById("flowersList").innerHTML += `
+    <div onclick="viewDetails('${flower.COMNAME}', '${flower.GENUS}', '${flower.SPECIES}')">
+    <img src="img/${flower.COMNAME}.jpg" height="100" width="100">
+    <h1>${flower.COMNAME}</h1>
+    </div>`;
+        }
+        if (callback) callback();
+    });
+}
 if (!hasCookie("username")) viewLogin();
 else {
     username = getCookie("username");
