@@ -52,13 +52,34 @@ function checkCookie() {
     }
 }
 
+var arr=new Array();
+arr[0]="url(img_league/Aatrox_0.jpg)";
+arr[1]="url(img_league/Ahri_0.jpg)";
+arr[2]="url(img_league/Akali_0.jpg)";
+arr[3]="url(img_league/Alistar_0.jpg)";
+arr[4]="url(img_league/Amumu_0.jpg)";
+arr[6]="initial";
+let image_i = 0; 
+function image_loop() {
+    //var ima=document.getElementById("image");
+    //ima.src=arr[i];
+    //console.log(image_i)
+    document.getElementById('body').style.backgroundImage = arr[image_i];
+    image_i++;
+    if(image_i == 5)    
+    image_i=0
+    setTimeout("image_loop()",5000) //一秒钟调用一次
+}
+
 function viewLogin(){
     document.getElementById('view-login').style.display = "initial";
     document.getElementById('view-main-search').style.display = "none";
     document.getElementById('view-main').style.display = "none";
     document.getElementById('view-main-details').style.display = "none";
-    document.getElementById('body').style.backgroundImage = "url(\"111.jpg\")";
+    //document.getElementById('body').style.backgroundImage = "url(img_league/Aatrox_0.jpg)";
+    
 }
+image_loop();
 
 function viewMain(){
     fillUsername();
@@ -206,12 +227,16 @@ function login(){
     if (username === "") return;
     setCookie("username", username, 1);
     viewMain();
+    
+    image_i = 6;
 }
 
 function logout(){
     username = "";
     setCookie("username", "", 1);
     viewLogin();
+    document.getElementById('body').style.backgroundImage = "url(img_league/Aatrox_0.jpg)";
+    image_i = 1;
 }
 
 function fillUsername(){
