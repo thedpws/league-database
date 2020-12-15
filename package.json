@@ -1,5 +1,5 @@
 {
-  "name": "dbassignment5",
+  "name": "league",
   "version": "1.0.0",
   "description": "for the databases assignment 5",
   "main": "index.js",
@@ -22,7 +22,8 @@
     "express-session": "^1.15.6",
     "fs": "0.0.1-security",
     "morgan": "^1.9.1",
-    "sqlite3": "^4.0.4",
+    "sqlite3": "^4.2.0",
     "url": "^0.11.0"
-  }
+  },
+  "devDependencies": {}
 }
