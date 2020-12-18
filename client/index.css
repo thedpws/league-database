@@ -93,7 +93,7 @@ button:hover{
     display: grid;
     grid-template-areas: "label search logout";
     grid-template-columns: 2fr 8fr 2fr;
-    background-color: pink;
+    background-color: rgb(175, 244, 252);
     padding-bottom: 20px;
     padding-top: 20px;
 }
@@ -160,7 +160,7 @@ button:hover{
 
 #view-main-search > .content > div:hover {
     transition: 0.35s;
-    background-color: pink;
+    background-color: rgb(255, 253, 192);
 }
 
 #view-main-search > .content > div > img {
